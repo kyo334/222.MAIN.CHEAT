@@ -1,1 +1,111 @@
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
+-- CONFIG
+local CORRECT_KEY = "222-MAIN-CHEAT-NO SNITCH"
+local SCRIPT_URL = "https://raw.githubusercontent.com/kyo334/222/refs/heads/main/MAIN.CHEAT.V1.%2520.%2525"
+local IMAGE_ID = "rbxassetid://139258266174649" 
+
+-- Remove old GUI
+if PlayerGui:FindFirstChild("KeySystemGui") then
+    PlayerGui.KeySystemGui:Destroy()
+end
+
+-- ScreenGui
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "KeySystemGui"
+ScreenGui.Parent = PlayerGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.ResetOnSpawn = false
+
+-- Frame
+local Frame = Instance.new("Frame")
+Frame.Parent = ScreenGui
+Frame.Size = UDim2.new(0, 420, 0, 200)
+Frame.Position = UDim2.new(0.5, -160, 0.5, -100)
+Frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Frame.Active = true
+Frame.Draggable = true
+
+local Corner = Instance.new("UICorner")
+Corner.CornerRadius = UDim.new(0, 8)
+Corner.Parent = Frame
+
+-- Background Image
+local BG = Instance.new("ImageLabel")
+BG.Parent = Frame
+BG.Size = UDim2.new(1, 0, 1, 0)
+BG.BackgroundTransparency = 0.2
+BG.Image = IMAGE_ID
+
+-- Title
+local Title = Instance.new("TextLabel")
+Title.Parent = Frame
+Title.BackgroundTransparency = 1
+Title.Size = UDim2.new(1, 0, 0, 35)
+Title.Font = Enum.Font.GothamBold
+Title.Text = "222 KEY SYSTEM"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextScaled = true
+Title.ZIndex = 2
+
+-- TextBox
+local TextBox = Instance.new("TextBox")
+TextBox.Parent = Frame
+TextBox.PlaceholderText = "Enter Key Here"
+TextBox.Size = UDim2.new(0.9, 0, 0, 40)
+TextBox.Position = UDim2.new(0.05, 0, 0.45, 0)
+TextBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextBox.Font = Enum.Font.Gotham
+TextBox.TextSize = 18
+TextBox.ClearTextOnFocus = false
+TextBox.ZIndex = 2
+
+local BoxCorner = Instance.new("UICorner")
+BoxCorner.CornerRadius = UDim.new(0, 6)
+BoxCorner.Parent = TextBox
+
+-- Submit Button
+local Button = Instance.new("TextButton")
+Button.Parent = Frame
+Button.Text = "Submit"
+Button.Size = UDim2.new(0.9, 0, 0, 40)
+Button.Position = UDim2.new(0.05, 0, 0.75, 0)
+Button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+Button.Font = Enum.Font.GothamBold
+Button.TextSize = 18
+Button.ZIndex = 2
+
+local BtnCorner = Instance.new("UICorner")
+BtnCorner.CornerRadius = UDim.new(0, 6)
+BtnCorner.Parent = Button
+
+-- Status Label
+local Status = Instance.new("TextLabel")
+Status.Parent = Frame
+Status.BackgroundTransparency = 1
+Status.Size = UDim2.new(1, 0, 0, 20)
+Status.Position = UDim2.new(0, 0, 0.62, 0)
+Status.Font = Enum.Font.Gotham
+Status.TextColor3 = Color3.fromRGB(255, 70, 70)
+Status.TextScaled = true
+Status.Text = ""
+Status.ZIndex = 2
+
+-- Functionality
+Button.MouseButton1Click:Connect(function()
+    if TextBox.Text == CORRECT_KEY then
+        Status.TextColor3 = Color3.fromRGB(70, 255, 70)
+        Status.Text = ""
+        task.wait(1)
+        ScreenGui:Destroy()
+        loadstring(game:HttpGet(SCRIPT_URL))()
+    else
+        Status.TextColor3 = Color3.fromRGB(255, 70, 70)
+        Status.Text = "WRONG KEY"
+        TextBox.Text = ""
+    end
+end)
